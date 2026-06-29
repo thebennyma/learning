@@ -116,13 +116,13 @@ h1 {
 .dashboard-grid,
 .workspace {
   display: grid;
-  grid-template-columns: 1.2fr 0.8fr;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
   gap: 18px;
   margin-top: 18px;
 }
 
 .workspace {
-  grid-template-columns: 380px 1fr;
+  grid-template-columns: minmax(280px, 380px) minmax(0, 1fr);
 }
 
 .panel {
@@ -138,6 +138,11 @@ h1 {
 .study-panel,
 .library-panel {
   padding: 22px;
+}
+
+.study-panel {
+  min-width: 0;
+  overflow: hidden;
 }
 
 .panel-title,
@@ -286,12 +291,15 @@ select {
 
 .segmented {
   display: flex;
+  flex: 1 1 360px;
+  flex-wrap: wrap;
   padding: 4px;
   border-radius: 8px;
   background: #ece3d1;
 }
 
 .segmented button {
+  flex: 1 1 92px;
   min-height: 34px;
   border-radius: 7px;
   background: transparent;
@@ -316,6 +324,7 @@ select {
   padding: 26px;
   border-radius: 8px;
   background: #fff8e2;
+  min-width: 0;
 }
 
 .flashcard h3,
@@ -325,6 +334,7 @@ select {
   margin: 0;
   font-size: clamp(1.5rem, 4vw, 2.8rem);
   line-height: 1.08;
+  overflow-wrap: anywhere;
 }
 
 .answer {
@@ -365,6 +375,7 @@ select {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
   gap: 12px;
   color: #596159;
   font-weight: 800;
@@ -386,6 +397,7 @@ select {
   min-height: 58px;
   border-color: #d5cbb7;
   text-align: left;
+  overflow-wrap: anywhere;
 }
 
 .quiz-options button.correct {
@@ -432,6 +444,7 @@ select {
   display: flex;
   flex-wrap: wrap;
   gap: 9px;
+  min-width: 0;
 }
 
 .order-answer {
@@ -462,6 +475,7 @@ select {
 .order-answer button {
   min-height: 36px;
   border-color: #d5cbb7;
+  white-space: normal;
 }
 
 .order-answer button {
@@ -560,6 +574,16 @@ select {
   .vocab-list {
     grid-template-columns: 1fr;
   }
+
+  .study-header {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .segmented {
+    flex-basis: auto;
+    width: 100%;
+  }
 }
 
 @media (max-width: 620px) {
@@ -573,11 +597,35 @@ select {
     padding: 28px 18px;
   }
 
+  .cefr-panel,
+  .stats-panel,
+  .entry-form,
+  .study-panel,
+  .library-panel {
+    padding: 16px;
+  }
+
+  .flashcard,
+  .quiz-game,
+  .write-game,
+  .order-game {
+    min-height: 240px;
+    padding: 18px;
+  }
+
   .library-tools,
-  .form-row,
-  .card-actions {
+  .form-row {
     align-items: stretch;
     flex-direction: column;
+  }
+
+  .card-actions {
+    align-items: stretch;
+    flex-wrap: wrap;
+  }
+
+  .card-actions button {
+    flex: 1 1 120px;
   }
 
   .match-grid,
@@ -587,11 +635,27 @@ select {
   }
 
   .segmented {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     width: 100%;
   }
 
   .segmented button {
-    flex: 1;
     padding: 0 8px;
+  }
+}
+
+@media (max-width: 420px) {
+  .app-shell {
+    width: min(100% - 14px, 1180px);
+  }
+
+  .segmented {
+    grid-template-columns: 1fr;
+  }
+
+  .quiz-topline {
+    align-items: flex-start;
+    flex-direction: column;
   }
 }
